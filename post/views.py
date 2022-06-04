@@ -6,4 +6,4 @@ def home(request):
     return render(request, 'post/home.html')
 
 def about(request):
-    return HttpResponse('<h1>Blog about</h1>')
+    return render(request, 'post/about.html')
