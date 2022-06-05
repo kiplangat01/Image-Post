@@ -5,10 +5,10 @@ from .models import Post
 
 def home(request):
     context = {
-        'post' : Post.objects.all()
+        'posts' : Post.objects.all()
     }
      
-    return render(request, 'post/home.html')
+    return render(request, 'post/home.html',  context)
 
 def about(request):
     return render(request, 'post/about.html')
