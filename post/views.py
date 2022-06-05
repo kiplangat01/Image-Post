@@ -3,7 +3,6 @@ from .models import Post
 
 
 
-
 def home(request):
     context = {
         'post' : Post.objects.all()
