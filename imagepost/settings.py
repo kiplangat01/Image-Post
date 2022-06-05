@@ -123,6 +123,10 @@ STATIC_URL = 'static/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+MEDIA_ROOT = ''
+ 
+MEDIA_URL = ''
+
 LOGIN_REDIRECT_URL = 'post-home'
 
 LOGIN_URL = 'login'
