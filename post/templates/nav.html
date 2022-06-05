@@ -15,15 +15,16 @@
             <a class="nav-link text-light" href="{% url 'post-about' %}">About</a>
           </li>
           
-        
+          {% if user.is_authenticated %}
+          <a class="nav-link text-light" href="{% url 'logout' %}">logout</a>
+          {% else %}
         <li class="nav-item">
-            <a class="nav-link text-light text-center font-weight-bold" href="#">login</a>
-  
+            <a class="nav-link text-light text-center font-weight-bold" href="{% url 'login' %}">login</a>
           </li>
           <li class="nav-item">
-            <a style="border-radius: 15px; margin-left: 30px;" class="text-right nav-link text-light bg-primary font-weight-bold"  href="#">sign up</a>
-  
+            <a style="border-radius: 15px; margin-left: 30px;" class="text-right nav-link text-light bg-primary font-weight-bold"  href="{% url 'register' %}">sign up</a>
           </li>
+          {% endif %}
       </ul>
       
     </div>
