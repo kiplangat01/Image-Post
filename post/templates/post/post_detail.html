@@ -1,0 +1,25 @@
+{% extends "post/base.html" %}
+{% block content %}
+<div class="container m-5">
+  <div class="row">
+      <div class="row">
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="col-md-2">
+              <div style="height: fit-content; width: fit-content; margin: 10px; box-shadow: 5px 5px 15px 15px #888888;"
+                class="card">
+                <img class="rounded-circle" src="{{ object.author.profile.image.url }}" height="50px" width="50px">
+                  <a class="mr-2" href="#">{{ object.author }}</a>
+                  <small class="text-muted">{{ object.dateposted|date:"F d , Y" }}</small> <br>
+                  <img style="height: 250px; width: 300px;" class="image-thumbnail" src="{{ post.content.url }}">
+                <div class="card-body">
+                  <h2 class="article-title">{{ object.title }}</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
