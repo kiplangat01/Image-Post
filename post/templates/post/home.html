@@ -1,16 +1,29 @@
 {% extends "post/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="container m-5">
+      
+       <style>
+         form{
+          text-align: center;
+         }
+       </style>
+
+<div class="show">
+  <h2 style="color: rgb(245, 220, 220); font-size: 70px;"  class="text-center  bg-primary "><b>showcase & discover <br> creative work</b></h2>
+</div>
+
+
+<div class="container">
+  
   <div class="row">
     <div class="">
       <div class="row">
         {% for post in posts%}
         <article class="media content-section">
           <div class="media-body">
-            <div class="col-md-2">
+            <div class="">
               <div style="height: fit-content; width: fit-content; margin: 10px; box-shadow:2px 2px 3px 3px #888888;"
-                class="card">
+                class="card m-4">
                 <img class="rounded-circle" src="{{ post.author.profile.image.url }}" height="50px" width="50px">
                   <a class="mr-2" href="#">{{ post.author }}</a>
                   <small class="text-muted">{{ post.date_posted|date:"F d , Y" }}</small> <br>
@@ -28,20 +41,7 @@
             </div>
           </div>
         </article>
-        {% endfor %}
-        <form method="POST" action="/saveimage/" enctype="multipart/form-data">
-          {% csrf_token %}
-          <fieldset class="form-group">
-          <legend class="border-bottom mb-4">Upload Pic</legend>
-          <input type="text" placeholder="title" name="title">
-          <input type="file" name="image">
-          </fieldset>
-          <div class="from-group">
-              <button class="btn btn-outline-info" type="submit">Upload</button>
-          </div>
-      </form>
-
-        
+        {% endfor %}    
       </div>
     </div>
   </div>
