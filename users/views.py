@@ -1,8 +1,13 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
+from django.http import HttpResponse, Http404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login
+
+from post.models import Follow
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .models import User
+from cloudinary.forms import cl_init_js_callbacks
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def register(request):
@@ -11,7 +16,6 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            # login(request)
             messages.success(request, f'Account created you can now login')
             return redirect('login')
     else:
@@ -40,3 +44,25 @@ def profile(request):
     }
 
     return render(request, 'users/profile.html', context)
+
+@login_required
+def user_profile(request, username):
+    user_prof = get_object_or_404(User, username=username)
+    if request.user == user_prof:
+        return redirect('profile', username=request.user.username)
+    user_images = user_prof.profile.images.all()
+    followers = Follow.objects.filter(followed=user_prof.profile)
+    follow_status = None
+    for follower in followers:
+        if request.user.profile == follower.follower:
+            follow_status = True
+        else:
+            follow_status = False
+    params = {
+        'user_prof': user_prof,
+        'user_images': user_images,
+        'followers': followers,
+        'follow_status': follow_status
+    }
+    print(followers)
+    return render(request, 'users/profile.html', params)

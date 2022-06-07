@@ -10,8 +10,8 @@
                 class="card">
                 <img class="rounded-circle" src="{{ object.author.profile.image.url }}" height="50px" width="50px">
                   <a class="mr-2" href="#">{{ object.author }}</a>
-                  <small class="text-muted">{{ object.dateposted|date:"F d , Y" }}</small> <br>
-                  <img style="height: 250px; width: 300px;" class="image-thumbnail" src="{{ post.content.url }}">
+                  <small class="text-muted">{{ object.date_posted|date:"F d , Y" }}</small> <br>
+                  <img style="height: 250px; width: 300px;" class="image-thumbnail" src="{{ object.image.url }}">
                 <div class="card-body">
                   <h2 class="article-title">{{ object.title }}</h2>
                 </div>
