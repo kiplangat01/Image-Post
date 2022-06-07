@@ -1,3 +1,4 @@
+from turtle import title
 from django.shortcuts import redirect, render
 from django.views.generic import ListView, DetailView, CreateView
 from django.core.exceptions import ObjectDoesNotExist
@@ -11,17 +12,17 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     posts = Image.objects.all()
     users = User.objects.exclude(id=request.user.id)
-    if request.method == "POST":
-        form = ImageUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            image = form.save(commit = False)
-            image.user = request.user.profile
-            image.save()
-            messages.success(request, f'Your Picture Was succesfully Added!')
-            return redirect('blog-home')
-    else:
-        form = ImageUploadForm()
-    return render(request, 'post/home.html',  posts)
+    # if request.method == "POST":
+    #     form = ImageUploadForm(request.POST, request.FILES)
+    #     if form.is_valid():
+    #         image = form.save(commit = False)
+    #         image.user = request.user.profile
+    #         image.save()
+    #         messages.success(request, f'Your Picture Was succesfully Added!')
+    #         return redirect('blog-home')
+    # else:
+        # form = ImageUploadForm()
+    return render(request, 'post/home.html',  {'posts':posts})
 
 
 class PostListView(ListView):
@@ -86,3 +87,20 @@ def comment(request,image_id):
         else:
                 form = CommentForm()
         return render(request, 'comment.html',locals())
+
+@login_required
+def SaveImage(request):
+    print('post')
+    if request.method == 'POST':
+        print('text')
+        # form = Image(request.POST, request.FILES)
+        # if form.is_valid():
+        author = request.user
+        title = request.POST['title']
+        image = request.FILES['image']
+        image = Image(author = author, title = title, image=image)
+        image.save()
+                    
+        return redirect('post-home')
+
+    return render(request, 'post-home')

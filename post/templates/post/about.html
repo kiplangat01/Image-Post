@@ -1,5 +1,12 @@
 {% extends "post/base.html" %}
-
-{% block content %} 
-<h1>About view</h1>
-{% endblock content %}
+{% load crispy_forms_tags %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset class="form-group">
+    <legend class="border-bottom mb-4">Upload Pic</legend>
+    {{ form | crispy }}
+    </fieldset>
+    <div class="from-group">
+        <button class="btn btn-outline-info" type="submit">Upload</button>
+    </div>
+</form>

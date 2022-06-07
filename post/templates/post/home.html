@@ -17,17 +17,24 @@
                   <img style="height: 250px; width: 300px;" class="image-thumbnail" src="{{ post.image.url }}"> <br>
                 <div class="article-metadata text-centre">
                   <h5 class="text-centre"><a class="article-title text-centre" href="#">{{ post.title }}</h4></a>
+                    {% for comment in comments %}
+                    {% if comment.image_id == image.id%}
+                        <p><strong>{{comment.user}}:</strong> {{comment.comment}}</p>
+                        <p>{{comment.posted | timesince}}</p><hr>
+                    {% endif %}
+                {% endfor %}
                 </div>
               </div>
             </div>
           </div>
         </article>
         {% endfor %}
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" action="/saveimage/" enctype="multipart/form-data">
           {% csrf_token %}
           <fieldset class="form-group">
           <legend class="border-bottom mb-4">Upload Pic</legend>
-          {{ form|crispy }}
+          <input type="text" placeholder="title" name="title">
+          <input type="file" name="image">
           </fieldset>
           <div class="from-group">
               <button class="btn btn-outline-info" type="submit">Upload</button>
