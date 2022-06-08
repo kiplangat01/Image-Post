@@ -34,6 +34,7 @@
                     {% for comment in comments %}
                     {% if comment.image_id == image.id%}
                         <p><strong>{{comment.user}}:</strong> {{comment.comment}}</p>
+                        <a href="{% url 'coment' %}"></a>
                         <p>{{comment.posted | timesince}}</p><hr>
                     {% endif %}
                 {% endfor %}

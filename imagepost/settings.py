@@ -38,6 +38,8 @@ cloudinary.config (
 
 # Application definition
 
+
+
 INSTALLED_APPS = [
     # revisit
     'post.apps.PostConfig',
@@ -88,10 +90,17 @@ WSGI_APPLICATION = 'imagepost.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(os.getenv('NAME')),
+        'USER': str(os.getenv('USER')),
+        'PASSWORD': str(os.getenv('PASSWORD')),
+        'HOST': str(os.getenv('HOST')),
+        'PORT': int(os.getenv('PORT')),
     }
 }
 
+DEBUG = True
+MODE = 'dev'
+ALLOWED_HOSTS = ['post.herokuapp.com', '127.0.0.1']
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

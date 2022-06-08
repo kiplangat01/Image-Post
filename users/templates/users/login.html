@@ -2,6 +2,23 @@
 {% load crispy_forms_tags %}
 {% block content %} 
 
+<style>
+    .content_section{
+        width: 600px;
+        align-items: center;
+        background-color: white;
+        border-radius: 30px;
+        justify-content: center;
+        align-items: center;
+        /* float: right; */
+        border: 1px solid rgb(66, 59, 59);
+        margin: 50px;
+        padding: 50px;
+
+    }
+    
+</style>
+
 <div class="content_section">
     <form action="" method="POST">
         {% csrf_token %}

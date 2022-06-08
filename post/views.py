@@ -1,4 +1,3 @@
-from turtle import title
 from django.shortcuts import redirect, render
 from django.views.generic import ListView, DetailView, CreateView
 from django.core.exceptions import ObjectDoesNotExist
@@ -45,23 +44,21 @@ def like_post(request):
         like.save()
     return redirect(request, 'post-home')
 
-@login_required 
-def comment(request,image_id):
-        current_user=request.user
-        image = Image.objects.get(id=image_id)
-        user_profile = User.objects.get(username=current_user.username)
-        comments = Comment.objects.all()
-        if request.method == 'POST':
-                form = CommentForm(request.POST, request.FILES)
-                if form.is_valid():
-                        comment = form.save(commit=False)
-                        comment.image = image
-                        comment.user = request.user
-                        comment.save()  
-                return redirect('')
-        else:
-                form = CommentForm()
-        return render(request, 'comment.html',locals())
+@login_required(login_url='')
+def comments(request, pk):
+    image = Image.objects.get(id=pk)
+    comments = Comment.objects.filter(image=image)
+
+    if request.method == 'POST':
+        comment = request.POST.get('comment')
+        print(comment)
+        comment_owner = User.objects.get(username=request.user)
+        new_comment = Comment.objects.create(
+            comment=comment, image=image, user=comment_owner)
+        new_comment.save()
+
+    context = {'comment': comments, 'image': image}
+    return render(request, 'post/comments.html', context)
 
 @login_required
 def SaveImage(request):
@@ -69,9 +66,8 @@ def SaveImage(request):
         author = request.user
         title = request.POST['title']
         image = request.FILES['image']
-        # content = request.POST['content']
         image = Image(author = author , title = title, image=image )
         image.save()
         return redirect('post-home')
 
-    return render(request, 'post-about')
+    return render(request, 'new-post')

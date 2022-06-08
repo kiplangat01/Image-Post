@@ -1,5 +1,4 @@
 from distutils.command.upload import upload
-from importlib.resources import contents
 from django.db import models
 from django.utils import timezone
 from cloudinary.models import CloudinaryField
@@ -10,8 +9,8 @@ from users.models import Profile
 class Image(models.Model):
     title = models.CharField(max_length=100, null=True )
     image = CloudinaryField('image', null=True)
-    # content = models.CharField(max_length=100, null=True )
     date_posted = models.DateTimeField(default=timezone.now)
+    likes = models.IntegerField(default=0)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
 
@@ -26,17 +25,15 @@ class Image(models.Model):
     def delete_image(self):
        
         self.delete()
-    @property
-    def num_liked(self):
-        return self.liked.all().count()
+    
 
-    @classmethod
-    def update_caption(cls, self, caption):
-        update_cap = cls.objects.filter(id = id).update(caption = caption)
-        return update_cap
+    # @classmethod
+    # def update_caption(cls, self, caption):
+    #     update_cap = cls.objects.filter(id = id).update(caption = caption)
+    #     return update_cap
 
     def __str__(self):
-        return self.image_name
+        return self.title
 
 LIKE_CHOICES = (
     ('Like', 'Like'),
@@ -48,8 +45,8 @@ class Like(models.Model):
     image = models.ForeignKey(Image, on_delete=models.CASCADE, null = True)
     value = models.CharField(choices=LIKE_CHOICES, default='Like', max_length=10, null = True)
 
-    def __str__(self):
-        return self.image
+    # def __str__(self):
+    #     return self.image
 
 class Subscribers(models.Model):
     name = models.CharField(max_length = 30)

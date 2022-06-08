@@ -12,6 +12,7 @@ urlpatterns = [
     path('saveimage/', views.SaveImage),  
     path('about/', views.about, name='new-post'),
     path('like', views.like_post,name = 'like-post'),
+    path('comments/<str:pk>', views.comments, name='comments'),
 ]
 
 if settings.DEBUG:

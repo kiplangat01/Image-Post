@@ -2,11 +2,9 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse, Http404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
 from post.models import Follow
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from .models import User
-from cloudinary.forms import cl_init_js_callbacks
 from django.core.exceptions import ObjectDoesNotExist
 
 
