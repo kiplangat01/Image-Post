@@ -69,8 +69,9 @@ def SaveImage(request):
         author = request.user
         title = request.POST['title']
         image = request.FILES['image']
-        image = Image(author = author, title = title, image=image)
+        # content = request.POST['content']
+        image = Image(author = author , title = title, image=image )
         image.save()
-        return redirect('new-post')
+        return redirect('post-home')
 
     return render(request, 'post-about')

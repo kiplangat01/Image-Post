@@ -1,11 +1,30 @@
 {% extends "post/base.html" %}
 {% block content %}
+        
+        <style>
+            form{
+                text-align: center;
+                margin-top: 50px;
+            }
+            input{
+                border: 0px;
+                height: 70px;
+                width: 350px;
+
+            }
+        </style>
+
+<div class="show">
+    <h2 style="color: rgb(245, 220, 220); font-size: 70px;"  class="text-center  bg-primary "><b>showcase & discover <br> creative work</b></h2>
+  </div>
+      
 <form id="pform" method="POST" class="" action="/saveimage/" enctype="multipart/form-data">
     {% csrf_token %}
     <fieldset class="form-group text-centre">
     <h4>Upload Post</h4>
-    <input type="text" placeholder="title" class="m-3" name="title"> <br>
-    <input type="file" name="image" class="bg-primary">
+    <input  type="text" placeholder="title" class="m-3" name="title"> <br>
+    
+    <input type="file" name="image">
     </fieldset>
     <div class="from-group">
         <button class="btn btn-outline-success" type="submit">Upload</button>

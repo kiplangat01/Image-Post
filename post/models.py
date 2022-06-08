@@ -10,6 +10,7 @@ from users.models import Profile
 class Image(models.Model):
     title = models.CharField(max_length=100, null=True )
     image = CloudinaryField('image', null=True)
+    # content = models.CharField(max_length=100, null=True )
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 

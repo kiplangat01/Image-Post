@@ -20,16 +20,17 @@
       <div class="row">
         {% for post in posts%}
         <article class="media content-section">
-          <div class="media-body">
+          <div class="media-body col-sm">
             <div class="">
               <div style="height: fit-content; width: fit-content; margin: 10px; box-shadow:2px 2px 3px 3px #888888;"
                 class="card m-4">
                 <img class="rounded-circle" src="{{ post.author.profile.image.url }}" height="50px" width="50px">
                   <a class="mr-2" href="#">{{ post.author }}</a>
                   <small class="text-muted">{{ post.date_posted|date:"F d , Y" }}</small> <br>
-                  <img style="height: 250px; width: 300px;" class="image-thumbnail" src="{{ post.image.url }}"> <br>
+                  <img style="height: 250px; width: 300px; " class="image-thumbnail" src="{{ post.image.url }}"> <br>
                 <div class="article-metadata text-centre">
-                  <h5 class="text-centre"><a class="article-title text-centre" href="#">{{ post.title }}</h4></a>
+                  <h6 class="text-centre"><b>{{ post.title }}</b></h6>
+                    
                     {% for comment in comments %}
                     {% if comment.image_id == image.id%}
                         <p><strong>{{comment.user}}:</strong> {{comment.comment}}</p>
