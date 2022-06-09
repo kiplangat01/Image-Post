@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 import django_heroku
-from decouple import config
+from decouple import config,Csv
 import dj_database_url
 import cloudinary, cloudinary.api,cloudinary.uploader
 
