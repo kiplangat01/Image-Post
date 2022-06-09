@@ -108,8 +108,8 @@ DATABASES = {
 
 
 DEBUG = True
-MODE = 'dev'
-ALLOWED_HOSTS = ['post.herokuapp.com', '127.0.0.1']
+MODE = 'prod'
+ALLOWED_HOSTS = ['*']
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
