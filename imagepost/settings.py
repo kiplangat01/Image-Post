@@ -11,12 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-import os
 import django_heroku
-import dj_database_url
+import os
 import cloudinary, cloudinary.api,cloudinary.uploader
 from dotenv import load_dotenv
-from decouple import config,Csv
 
 
 env_path= Path('.')/'.env'
@@ -24,7 +22,7 @@ env_path= Path('.')/'.env'
 load_dotenv(dotenv_path=env_path)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -39,9 +37,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 cloudinary.config ( 
-  cloud_name = str(os.getenv('COMPANY')),
-  api_key = str(os.getenv('APIKEY')), 
-  api_secret = str(os.getenv('APISEC')), 
+  cloud_name = 'nobies',
+  api_key = '119444351949172', 
+  api_secret = 'TNDcDVOVJspzts-EnDYcNt0zHos'
 )
 
 
@@ -69,8 +67,8 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'imagepost.urls'
@@ -107,6 +105,7 @@ DATABASES = {
         'PORT': 5432,
     }
 }
+
 
 DEBUG = True
 MODE = 'dev'
@@ -166,12 +165,6 @@ LOGIN_URL = 'login'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-
 
 
 django_heroku.settings(locals())
