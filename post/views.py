@@ -1,10 +1,11 @@
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Profile, Image, User, Comment, Like
 from .forms import ImageUploadForm, CommentForm
 from django.contrib import messages
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -26,23 +27,25 @@ class PostDetailView(DetailView):
 def about(request):
     return render(request, 'post/new_post.html')
 
-def like_post(request):
+def like(request, pk):
     user = request.user
-    if request.method == 'POST':
-        image_id = request.POST.get('image_id')
-        img_obj = Image.objects.get(id = image_id)
-        if user in img_obj.liked.all():
-            img_obj.liked.remove(user)
-        else:
-            img_obj.liked.add(user)
-        like, created = Like.objects.get_or_create(user = user, image_id = image_id)
-        if not created:
-            if like.value == 'Like':
-                like.value = 'Unlike'
-            else:
-                like.value = 'Like'
-        like.save()
-    return redirect(request, 'post-home')
+    image = Image.objects.get(id=pk)
+    current_likes = image.likes
+    liked = Like.objects.filter(user=user, image=image).count()
+
+    if not liked:
+            class_name = 'red'
+            like = Like.objects.create(user=user, image=image)
+            current_likes = current_likes + 1
+
+    else:
+            Like.objects.filter(user=user, image=image).delete()
+            current_likes = current_likes - 1
+
+    image.likes = current_likes
+    image.save()
+
+    return HttpResponseRedirect(reverse('post-home'))
 
 @login_required(login_url='')
 def comments(request, pk):

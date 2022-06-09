@@ -30,14 +30,9 @@
                   <img style="height: 250px; width: 300px; " class="image-thumbnail" src="{{ post.image.url }}"> <br>
                 <div class="article-metadata text-centre">
                   <h6 class="text-centre"><b>{{ post.title }}</b></h6>
+                  <a style="font-size: 20px;" href="{% url 'like-post' post.id %}"><i  class="fa-solid fa-heart"></i> {{post.likes}}</a>
+                  <a style="font-size: 15px; float: right; margin-left: 25px;" href="{% url 'comments' post.id %}"><i class="fa-solid fa-comments"></i></a> <br>
                     
-                    {% for comment in comments %}
-                    {% if comment.image_id == image.id%}
-                        <p><strong>{{comment.user}}:</strong> {{comment.comment}}</p>
-                        <a href="{% url 'coment' %}"></a>
-                        <p>{{comment.posted | timesince}}</p><hr>
-                    {% endif %}
-                {% endfor %}
                 </div>
               </div>
             </div>

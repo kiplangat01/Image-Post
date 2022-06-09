@@ -12,10 +12,19 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
+import dj_database_url
 import cloudinary, cloudinary.api,cloudinary.uploader
+from dotenv import load_dotenv
+from decouple import config,Csv
+
+
+env_path= Path('.')/'.env'
+
+load_dotenv(dotenv_path=env_path)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -30,9 +39,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 cloudinary.config ( 
-  cloud_name = 'nobies',
-  api_key = '119444351949172', 
-  api_secret = 'TNDcDVOVJspzts-EnDYcNt0zHos'
+  cloud_name = str(os.getenv('COMPANY')),
+  api_key = str(os.getenv('APIKEY')), 
+  api_secret = str(os.getenv('APISEC')), 
 )
 
 
@@ -60,6 +69,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -89,12 +99,12 @@ WSGI_APPLICATION = 'imagepost.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': str(os.getenv('NAME')),
         'USER': str(os.getenv('USER')),
         'PASSWORD': str(os.getenv('PASSWORD')),
         'HOST': str(os.getenv('HOST')),
-        'PORT': int(os.getenv('PORT')),
+        'PORT': 5432,
     }
 }
 
@@ -154,3 +164,14 @@ LOGIN_URL = 'login'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+
+
+django_heroku.settings(locals())

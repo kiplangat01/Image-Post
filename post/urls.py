@@ -11,7 +11,7 @@ urlpatterns = [
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
     path('saveimage/', views.SaveImage),  
     path('about/', views.about, name='new-post'),
-    path('like', views.like_post,name = 'like-post'),
+    path('like/<str:pk>', views.like,name = 'like-post'),
     path('comments/<str:pk>', views.comments, name='comments'),
 ]
 
