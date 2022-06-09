@@ -30,9 +30,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 cloudinary.config ( 
-  cloud_name = config('COMPANY'),
-  api_key = config('APIKEY'), 
-  api_secret = config('APISEC')
+  cloud_name = 'nobies',
+  api_key = '119444351949172', 
+  api_secret = 'TNDcDVOVJspzts-EnDYcNt0zHos'
 )
 
 MODE=config("MODE", default="dev")
