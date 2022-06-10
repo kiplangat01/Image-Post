@@ -26,7 +26,8 @@ class PostDetailView(DetailView):
 
 def about(request):
     return render(request, 'post/new_post.html')
-
+    
+@login_required
 def like(request, pk):
     user = request.user
     image = Image.objects.get(id=pk)
