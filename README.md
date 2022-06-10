@@ -16,6 +16,10 @@
 ## Description
  
 <p>this web consisting of user jouney like facebook or instagram where user can register, login, post a photo, commennt and like other peoples posts
+   <h5>admin credecials</h5>
+   user: Kiplangat
+   password: kiplel254
+
 </p>
 
 ## Installation
