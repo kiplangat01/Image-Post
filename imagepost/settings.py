@@ -42,6 +42,7 @@ MODE=config("MODE", default="dev")
 INSTALLED_APPS = [
     'post.apps.PostConfig',
     'crispy_forms',
+    'cloudinary',
     'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
