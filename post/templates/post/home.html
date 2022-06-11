@@ -31,19 +31,6 @@
                 <div class="article-metadata text-centre">
                   <h6 class="text-centre"><b>{{ post.title }}</b></h6>
                   <a style="font-size: 20px;" href="{% url 'like-post' post.id %}"><i  class="fa-solid fa-heart"></i> {{post.likes}}</a>
-                  {% for comment in image.comments.all %}
-                    <div class="comment ">
-                        <div class="ml-2">
-                            <strong>{{ comment.owner | lower}}</strong>
-                            <span class="">{{ comment.comment |capfirst}}</span>
-                            <p>
-                                <small><span class="text-muted">{{ comment.created | timesince }}</span></small>
-                            </p>
-                        </div>
-                    </div>
-                    {% empty %}
-                    <p class="ml-3">Be the first to comment</p>
-                    {% endfor %}
                   <a style="font-size: 15px; float: right; margin-left: 25px;" href="{% url 'comments' post.id %}"><i class="fa-solid fa-comments"></i></a> <br>
                     
                 </div>
