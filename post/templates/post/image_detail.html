@@ -14,6 +14,19 @@
                   <img style="height: 250px; width: 300px;" class="image-thumbnail" src="{{ object.image.url }}">
                 <div class="card-body">
                   <h2 class="article-title">{{ object.title }}</h2>
+                  {% for comment in image.comments.all %}
+                    <div class="comment ">
+                        <div class="ml-2">
+                            <strong>{{ comment.owner | lower}}</strong>
+                            <span class="">{{ comment.comment |capfirst}}</span>
+                            <p>
+                                <small><span class="text-muted">{{ comment.created | timesince }}</span></small>
+                            </p>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="ml-3">Be the first to comment</p>
+                    {% endfor %}
                 </div>
               </div>
             </div>
